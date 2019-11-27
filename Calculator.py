@@ -78,7 +78,8 @@ class Calculator(object):
 
 
     def resize(self, event):
-        print(event.height)
+        pass
+        #print(event.height)
 
 
     def valid(self, comm):
@@ -197,7 +198,6 @@ class Calculator(object):
             final = int(npass1[-1])
         else:
             final = npass1[-1]
-
         self.result.insert(INSERT, str(final))
         self.button_cache.append("E")
 
