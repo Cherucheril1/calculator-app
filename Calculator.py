@@ -122,15 +122,22 @@ class Calculator(object):
         try:
             if self.button_cache[-1] == "E":
                 self.clear()
-
         except IndexError:
             pass
+
         if self.valid(comm):
-            self.input_list.append(comm)
-            self.input_string += str(comm)
-            self.out.delete(1.0, END)
-            self.out.insert(INSERT, self.input_string)
-            self.button_cache.append(comm)
+            if comm == "N":
+                self.input_list.append(comm)
+                self.input_string += "-"
+                self.out.delete(1.0, END)
+                self.out.insert(INSERT, self.input_string)
+                self.button_cache.append(comm)
+            else:
+                self.input_list.append(comm)
+                self.input_string += str(comm)
+                self.out.delete(1.0, END)
+                self.out.insert(INSERT, self.input_string)
+                self.button_cache.append(comm)
         else:
             pass
 
@@ -149,17 +156,19 @@ class Calculator(object):
             return
 
         operations = []
-        for i in range(len(self.input_string)):
+        newstring = "".join(str(x) for x in self.input_list)
+        for i in range(len(newstring)):
             # Make operations list
-            if self.input_string[i] in ["X", "/", "+", "-"]:
-                operations.append(self.input_string[i])
+            if newstring[i] in ["X", "/", "+", "-"]:
+                operations.append(newstring[i])
             else:
                 pass
-        numbers = re.split("X|/|\+|-", self.input_string)
+        numbers = re.split("X|/|\+|-", newstring)
         for i in range(len(numbers)):
             # Change N to negative and string to float
             if numbers[i][0] == "N":
-                numbers[i][0] == "-"
+                new = "-" + numbers[i][1::]
+                numbers[i] = new
             numbers[i] = float(numbers[i])
 
         # Now for pemdas.
@@ -193,11 +202,11 @@ class Calculator(object):
                 #add
                 res = npass1[i] + npass1[i+1]
                 npass1[i+1] = res
-
         if npass1[-1]%1 == 0:
             final = int(npass1[-1])
         else:
             final = npass1[-1]
+        final = format(final, '.10g')
         self.result.insert(INSERT, str(final))
         self.button_cache.append("E")
 
