@@ -75,11 +75,17 @@ class Calculator(object):
         self.clear_but = Button(master, text = "C", command=self.clear, height=5, width=5)
         self.clear_but.grid(row = 4, column = 4, rowspan=2, sticky="news")
 
+        self.inheight = 0
+        print(self.master)
+
+
 
 
     def resize(self, event):
-        pass
-        #print(event.height)
+        print(event.height)
+        print(event.width)
+        print()
+
 
 
     def valid(self, comm):
@@ -188,10 +194,17 @@ class Calculator(object):
                     npass1.append(res)
                     numbers[i+1] = res
                 else:
-                     # divide
-                     res = numbers[i]/numbers[i+1]
-                     npass1.append(res)
-                     numbers[i+1] = res
+                    # divide
+                    try:
+                        res = numbers[i]/numbers[i+1]
+                        npass1.append(res)
+                        numbers[i+1] = res
+
+                    except ZeroDivisionError:
+                        self.result.insert(INSERT, "Undefined")
+                        self.button_cache.append("E")
+                        return
+
 
         for i in range(len(opass)):
             if opass[i] == "-":
