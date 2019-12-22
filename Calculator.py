@@ -22,7 +22,6 @@ class Calculator(object):
         # Buttons
         self.point = Button(master, text = ".", command= lambda: self.typing("."), height=3, width=3)
         self.point.grid(row=5, column=0, sticky="news")
-        self.point.bind("<Configure>", self.resize)
 
         self.zero = Button(master, text = "0", command=lambda: self.typing(0), height=3, width=3)
         self.zero.grid(row=5, column=1, sticky="news")
@@ -74,18 +73,6 @@ class Calculator(object):
 
         self.clear_but = Button(master, text = "C", command=self.clear, height=5, width=5)
         self.clear_but.grid(row = 4, column = 4, rowspan=2, sticky="news")
-
-        self.inheight = 0
-        print(self.master)
-
-
-
-
-    def resize(self, event):
-        print(event.height)
-        print(event.width)
-        print()
-
 
 
     def valid(self, comm):
